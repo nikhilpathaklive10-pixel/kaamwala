@@ -5,31 +5,50 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0b7a53">
 <title>KaamWala</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7f8;color:#17211b}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f7f8;color:#17211b}
 header{background:#0b7a53;color:#fff;padding:22px 18px 28px;border-radius:0 0 24px 24px}
-h1{margin:0;font-size:30px}header p{margin:7px 0 0;opacity:.9}
-.wrap{max-width:720px;margin:auto}.search{margin:-18px 16px 18px;background:white;padding:12px;border-radius:16px;box-shadow:0 4px 18px #0001}
+h1{margin:0;font-size:30px}
+header p{margin:7px 0 0;opacity:.9}
+.wrap{max-width:720px;margin:auto}
+.search{margin:-18px 16px 18px;background:white;padding:12px;border-radius:16px;box-shadow:0 4px 18px #0001}
 input{width:100%;padding:14px;border:1px solid #ddd;border-radius:12px;font-size:16px}
-h2{font-size:20px;margin:20px 16px 12px}.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 16px}
+h2{font-size:20px;margin:20px 16px 12px}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 16px}
 .cat{background:#fff;border:0;border-radius:14px;padding:16px 8px;font-size:14px;box-shadow:0 2px 8px #0000000d}
-.cat b{display:block;font-size:25px;margin-bottom:7px}.workers{padding:0 16px 90px}
+.cat b{display:block;font-size:25px;margin-bottom:7px}
+.workers{padding:0 16px 90px}
 .card{background:#fff;border-radius:16px;padding:16px;margin:10px 0;box-shadow:0 2px 10px #0000000d}
-.name{font-weight:700;font-size:18px}.meta{color:#66736b;font-size:14px;margin:6px 0 12px}
-.btns{display:flex;gap:8px}.btn{flex:1;text-align:center;text-decoration:none;padding:11px;border-radius:10px;font-weight:700}
-.call{background:#e7f7ef;color:#087547}.wa{background:#e9f7ed;color:#168443}
+.name{font-weight:700;font-size:18px}
+.meta{color:#66736b;font-size:14px;margin:6px 0 12px}
+.btns{display:flex;gap:8px}
+.btn{flex:1;text-align:center;text-decoration:none;padding:11px;border-radius:10px;font-weight:700}
+.call{background:#e7f7ef;color:#087547}
+.wa{background:#e9f7ed;color:#168443}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;padding:10px 16px;display:flex;justify-content:center}
 .reg{background:#0b7a53;color:#fff;border:0;padding:13px 22px;border-radius:12px;font-size:16px;font-weight:700}
-#register{display:none;padding:0 16px 90px}.note{background:#fff3cd;padding:12px;border-radius:12px;font-size:14px}
+#register{display:none;padding:0 16px 90px}
+.note{background:#fff3cd;padding:12px;border-radius:12px;font-size:14px}
 </style>
 </head>
+
 <body>
 <div class="wrap">
-<header><h1>KaamWala</h1><p>Apne area ka trusted worker aasani se paaiye</p></header>
-<div class="search"><input id="search" placeholder="Worker ya service search karein..." oninput="render()"></div>
+
+<header>
+<h1>KaamWala</h1>
+<p>Apne area ka trusted worker aasani se paaiye</p>
+</header>
+
+<div class="search">
+<input id="search" placeholder="Worker ya service search karein..." oninput="render()">
+</div>
 
 <section id="home">
 <h2>Service चुनें</h2>
+
 <div class="cats">
 <button class="cat" onclick="filterCat('Plumber')"><b>🔧</b>Plumber</button>
 <button class="cat" onclick="filterCat('Electrician')"><b>⚡</b>Electrician</button>
@@ -38,27 +57,38 @@ h2{font-size:20px;margin:20px 16px 12px}.cats{display:grid;grid-template-columns
 <button class="cat" onclick="filterCat('Cleaner')"><b>🧹</b>Cleaner</button>
 <button class="cat" onclick="filterCat('Mason')"><b>🧱</b>Mason</button>
 </div>
+
 <h2>Available Workers</h2>
 <div class="workers" id="workers"></div>
 </section>
 
 <section id="register">
 <h2>Worker Registration</h2>
-<div class="note">Apni details bhariye. Ye version aapke phone/browser me worker ko save karke turant list me dikhayega.</div>
+
+<div class="note">
+Apni details bhariye. Ye version aapke phone/browser me worker ko save karke turant list me dikhayega.
+</div>
+
 <br>
+
 <input id="rname" placeholder="Aapka naam"><br><br>
 <input id="rservice" placeholder="Kaam: Plumber / Electrician..."><br><br>
 <input id="rphone" placeholder="Mobile number" type="tel" inputmode="numeric"><br><br>
 <input id="rlocation" placeholder="Area / City"><br><br>
-<button class="reg" onclick="registerWorker()">Register</button>
-<div id="regmsg" style="margin-top:12px;font-weight:700"></div>
 
+<button class="reg" onclick="registerWorker()">Register</button>
+
+<div id="regmsg" style="margin-top:12px;font-weight:700"></div>
 </section>
 
-<div class="bottom"><button class="reg" onclick="showRegister()">👷 Worker banna hai? Register karein</button></div>
+<div class="bottom">
+<button class="reg" onclick="showRegister()">👷 Worker banna hai? Register karein</button>
+</div>
+
 </div>
 
 <script>
+
 const defaultWorkers=[
 {name:"Ramesh Kumar",service:"Plumber",location:"Gorakhpur",phone:"919876543210"},
 {name:"Suresh Yadav",service:"Electrician",location:"Gorakhpur",phone:"919876543211"},
@@ -66,44 +96,106 @@ const defaultWorkers=[
 {name:"Vikas Sharma",service:"Painter",location:"Gorakhpur",phone:"919876543213"},
 {name:"Rajesh",service:"Cleaner",location:"Gorakhpur",phone:"919876543214"}
 ];
+
 let workers=JSON.parse(localStorage.getItem("kaamwala_workers")||"null") || defaultWorkers;
 let active="";
-function filterCat(c){active=c;document.getElementById("search").value=c;render()}
-function render(){
-let q=document.getElementById("search").value.toLowerCase();
-let list=workers.filter(w=>(!q||`${w.name} ${w.service} ${w.location}`.toLowerCase().includes(q)));
-document.getElementById("workers").innerHTML=list.map(w=>`
-<div class="card"><div class="name">${w.name}</div>
-<div class="meta">${w.service} • ${w.location}</div>
-<div class="btns">
-<a class="btn call" href="tel:+${w.phone}">📞 Call</a>
-<a class="btn wa" target="_blank" href="https://wa.me/${w.phone}">💬 WhatsApp</a>
-</div></div>`).join("") || "<p>Is search ke liye worker nahi mila.</p>";
+
+function filterCat(c){
+active=c;
+document.getElementById("search").value=c;
+render();
 }
+
+function render(){
+
+let q=document.getElementById("search").value.toLowerCase();
+
+let list=workers.filter(w=>
+(!q||`${w.name} ${w.service} ${w.location}`.toLowerCase().includes(q))
+);
+
+document.getElementById("workers").innerHTML=list.map(w=>`
+
+<div class="card">
+
+<div class="name">${w.name}</div>
+
+<div class="meta">${w.service} • ${w.location}</div>
+
+<div class="btns">
+
+<a class="btn call" href="tel:+${w.phone}">📞 Call</a>
+
+<a class="btn wa" target="_blank" href="https://wa.me/${w.phone}">💬 WhatsApp</a>
+
+</div>
+
+</div>
+
+`).join("") || "<p>Is search ke liye worker nahi mila.</p>";
+}
+
 function registerWorker(){
+
 const name=document.getElementById("rname").value.trim();
 const service=document.getElementById("rservice").value.trim();
 const rawPhone=document.getElementById("rphone").value.replace(/\D/g,"");
 const location=document.getElementById("rlocation").value.trim();
 const msg=document.getElementById("regmsg");
-if(!name||!service||!rawPhone||!location){msg.textContent="⚠️ Sabhi details bhariye.";return;}
-let phone=rawPhone;
-if(phone.length===10) phone="91"+phone;
-if(phone.length<10){msg.textContent="⚠️ Sahi mobile number daliye.";return;}
-const worker={name,service,location,phone};
-workers=[worker,...workers.filter(w=>!(w.name===name&&w.phone===phone))];
-localStorage.setItem("kaamwala_workers",JSON.stringify(workers));
-msg.textContent="✅ Registration ho gaya! Worker list me add kar diya gaya.";
-render();
-document.getElementById("rname").value="";document.getElementById("rservice").value="";document.getElementById("rphone").value="";document.getElementById("rlocation").value="";
-setTimeout(()=>{document.getElementById("home").style.display="block";document.getElementById("register").style.display="none";document.getElementById("search").value="";render();scrollTo(0,0);},1200);
+
+if(!name||!service||!rawPhone||!location){
+msg.textContent="⚠️ Sabhi details bhariye.";
+return;
 }
+
+let phone=rawPhone;
+
+if(phone.length===10) phone="91"+phone;
+
+if(phone.length<10){
+msg.textContent="⚠️ Sahi mobile number daliye.";
+return;
+}
+
+const worker={name,service,location,phone};
+
+workers=[
+worker,
+...workers.filter(w=>!(w.name===name&&w.phone===phone))
+];
+
+localStorage.setItem("kaamwala_workers",JSON.stringify(workers));
+
+msg.textContent="✅ Registration ho gaya! Worker list me add kar diya gaya.";
+
+render();
+
+document.getElementById("rname").value="";
+document.getElementById("rservice").value="";
+document.getElementById("rphone").value="";
+document.getElementById("rlocation").value="";
+
+setTimeout(()=>{
+document.getElementById("home").style.display="block";
+document.getElementById("register").style.display="none";
+document.getElementById("search").value="";
+render();
+scrollTo(0,0);
+},1200);
+
+}
+
 function showRegister(){
+
 document.getElementById("home").style.display="none";
 document.getElementById("register").style.display="block";
+
 scrollTo(0,0);
 }
+
 render();
+
 </script>
+
 </body>
 </html>
