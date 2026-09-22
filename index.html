@@ -524,6 +524,13 @@ ${escapeHTML(worker.name)}
 <div class="btns">
 
 <a
+class="btn"
+href="#"
+onclick="viewProfile('${phone}');return false;">
+👤 Profile
+</a>
+
+<a
 class="btn call"
 href="tel:${phone}">
 📞 Call
@@ -536,6 +543,7 @@ target="_blank">
 💬 WhatsApp
 </a>
 
+</div>
 </div>
 
 </div>
@@ -617,7 +625,24 @@ return text
 .replace(/'/g,"&#039;");
 
 }
+function viewProfile(phone){
+  const worker = workers.find(
+    w => w.phone.replace(/\D/g,"") === phone
+  );
 
+  if(!worker){
+    alert("Worker profile nahi mila.");
+    return;
+  }
+
+  alert(
+    "👤 Worker Profile\n\n" +
+    "Naam: " + worker.name + "\n" +
+    "Kaam: " + worker.service + "\n" +
+    "📍 Area: " + worker.location + "\n" +
+    "📞 Phone: " + worker.phone
+  );
+  }
 
 /* START */
 render();
