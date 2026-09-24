@@ -635,13 +635,83 @@ function viewProfile(phone){
     return;
   }
 
-  alert(
-    "👤 Worker Profile\n\n" +
-    "Naam: " + worker.name + "\n" +
-    "Kaam: " + worker.service + "\n" +
-    "📍 Area: " + worker.location + "\n" +
-    "📞 Phone: " + worker.phone
+  const reviewKey = "kaamwala_reviews_" + phone;
+
+let reviews = JSON.parse(
+  localStorage.getItem(reviewKey) || "[]"
+);
+
+let average = 0;
+
+if(reviews.length > 0){
+  average =
+    reviews.reduce((sum, r) => sum + r.rating, 0) /
+    reviews.length;
+}
+
+let reviewText =
+  "👤 Worker Profile\n\n" +
+  "Naam: " + worker.name + "\n" +
+  "Kaam: " + worker.service + "\n" +
+  "📍 Area: " + worker.location + "\n" +
+  "📞 Phone: " + worker.phone + "\n\n" +
+  "⭐ Rating: " +
+  (reviews.length ? average.toFixed(1) : "No rating yet") +
+  "\n" +
+  "💬 Reviews: " + reviews.length;
+
+if(reviews.length > 0){
+
+  reviewText += "\n\nRecent Reviews:\n";
+
+  reviews.slice(-3).reverse().forEach((r, i) => {
+    reviewText +=
+      "\n⭐ " + r.rating + "/5 - " +
+      r.text;
+  });
+}
+
+alert(reviewText);
+
+if(confirm("⭐ Kya aap is worker ko Rating & Review dena chahte hain?")){
+
+  let rating = prompt(
+    "⭐ Rating दें (1 से 5 तक):"
   );
+
+  rating = Number(rating);
+
+  if(!rating || rating < 1 || rating > 5){
+
+    alert("कृपया 1 से 5 के बीच Rating दें।");
+
+  }else{
+
+    let review = prompt(
+      "✍️ अपना Review लिखें:"
+    );
+
+    if(review && review.trim()){
+
+      reviews.push({
+        rating: rating,
+        text: review.trim(),
+        date: new Date().toLocaleDateString("hi-IN")
+      });
+
+      localStorage.setItem(
+        reviewKey,
+        JSON.stringify(reviews)
+      );
+
+      alert(
+        "✅ आपका Rating & Review save हो गया!\n\n" +
+        "⭐ Rating: " + rating + "/5\n" +
+        "✍️ Review: " + review
+      );
+    }
+  }
+  }
   }
 
 /* START */
